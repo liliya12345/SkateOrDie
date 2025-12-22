@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop | SKATEORDIE.</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+<!-- Modern Header -->
+<header class="header" id="header">
+  <div class="container header-container">
+    <a href="index.html" class="logo">
+      SKATE<span>OR DIE.</span>
+    </a>
+
+    <nav class="nav">
+      <ul class="nav-links">
+        <li><a href="index.html#research" class="nav-link">Design</a></li>
+        <li class="dropdown">
+          <a href="shop.html" class="nav-link active">Shop</a>
+          <div class="dropdown-content">
+            <a href="#filter-all" class="dropdown-item" onclick="filterProducts('all')">
+              <i class="fas fa-grid"></i>
+              All Products
+            </a>
+            <a href="#filter-hoodies" class="dropdown-item" onclick="filterProducts('Hoodies')">
+              <i class="fas fa-tshirt"></i>
+              Hoodies & Sweats
+            </a>
+            <a href="#filter-pants" class="dropdown-item" onclick="filterProducts('Pants')">
+              <i class="fas fa-user"></i>
+              Pants & Shorts
+            </a>
+            <a href="#filter-footwear" class="dropdown-item" onclick="filterProducts('Footwear')">
+              <i class="fas fa-shoe-prints"></i>
+              Footwear
+            </a>
+            <a href="#filter-accessories" class="dropdown-item" onclick="filterProducts('Accessories')">
+              <i class="fas fa-hat-cowboy"></i>
+              Accessories
+            </a>
+          </div>
+        </li>
+        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="cart-icon" onclick="toggleCart()">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="btn btn-secondary mobile-menu-toggle" style="display: none;">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Shop Hero -->
+<section class="shop-hero">
+  <div class="container">
+    <span class="inline-logo"></span>
+    <p class="text-lg">Premium skatewear and streetwear for the urban explorer</p>
+  </div>
+</section>
+
+<!-- Shop Section -->
+<section id="shop" class="section eshop-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="display-md">Shop Collection</h2>
+      <p class="text-lg opacity-75">
+        Discover our curated collection of premium skatewear essentials
+      </p>
+    </div>
+
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-tab active" onclick="filterProducts('all')" id="filter-all">All Products</button>
+      <button class="filter-tab" onclick="filterProducts('Hoodies')" id="filter-hoodies">Hoodies</button>
+      <button class="filter-tab" onclick="filterProducts('Pants')" id="filter-pants">Pants</button>
+      <button class="filter-tab" onclick="filterProducts('Footwear')" id="filter-footwear">Footwear</button>
+      <button class="filter-tab" onclick="filterProducts('Accessories')" id="filter-accessories">Accessories</button>
+    </div>
+
+    <div class="products-grid" id="productsContainer">
+      <!-- Products loaded via JavaScript -->
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+      <div class="cart-header">
+        <h3>Your Cart</h3>
+        <button class="btn btn-secondary" onclick="toggleCart()">×</button>
+      </div>
+      <div class="cart-items" id="cartItems">
+        <!-- Cart items will be loaded here -->
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total:</span>
+          <span id="cartTotal">$0</span>
+        </div>
+        <button class="btn btn-primary" style="width: 100%;">Checkout</button>
+      </div>
+    </div>
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>SKATEORDIE</h3>
+        <p class="text-sm opacity-75 mt-3">
+          Modern design systems and e-commerce solutions
+          for contemporary skatewear brands.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Shop</h3>
+        <ul class="footer-links">
+          <li><a href="#filter-all" onclick="filterProducts('all')">All Products</a></li>
+          <li><a href="#filter-hoodies" onclick="filterProducts('Hoodies')">Hoodies</a></li>
+          <li><a href="#filter-pants" onclick="filterProducts('Pants')">Pants</a></li>
+          <li><a href="#filter-footwear" onclick="filterProducts('Footwear')">Footwear</a></li>
+          <li><a href="#filter-accessories" onclick="filterProducts('Accessories')">Accessories</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <ul class="footer-links">
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns & Exchanges</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Connect</h3>
+        <ul class="footer-links">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="text-sm opacity-75">
+        © 2025 SKATE or DIE. Skatewear Collective. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- JavaScript Files -->
+<script src="js/script.js"></script>
+<script src="js/shop.js"></script>
+</body>
+</html>
