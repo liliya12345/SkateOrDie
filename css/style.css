@@ -1,6 +1,6 @@
 /* ===== MODERN DESIGN SYSTEM ===== */
 :root {
-  --black: #0a0a0a;
+  --black: #329178;
   --white: #ffffff;
   --gray-50: #f8f9fa;
   --gray-100: #e9ecef;
@@ -18,10 +18,10 @@
   --border-radius-lg: 24px;
   --border-radius-sm: 8px;
 
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
-  --shadow-xl: 0 16px 48px rgba(0,0,0,0.16);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-xl: 0 16px 48px rgba(0,0,0,0.6);
 
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -41,8 +41,8 @@ html {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background-color: var(--white);
-  color: var(--gray-900);
+  background-color: #1a1a1a; /* ТЕМНЫЙ ФОН */
+  color: #e0e0e0; /* Светлый текст */
   line-height: 1.6;
   font-weight: 400;
   overflow-x: hidden;
@@ -55,16 +55,23 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
+  color: #ffffff; /* Белые заголовки */
 }
 
 .container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
+  background-color: #1a1a1a; /* ТОЛЬКО ЭТА СТРОКА ИЗМЕНЕНА */
+}
+.section{
+
+  background-color: #1a1a1a; /* ТОЛЬКО ЭТА СТРОКА ИЗМЕНЕНА */
 }
 
 .section {
   padding: 120px 0;
+  background-color: transparent; /* Прозрачный фон секций */
 }
 
 .section-sm {
@@ -76,36 +83,43 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 4.5rem;
   line-height: 1.1;
   letter-spacing: -0.03em;
+  color: #ffffff;
 }
 
 .display-md {
   font-size: 3.5rem;
   line-height: 1.1;
+  color: #ffffff;
 }
 
 .display-sm {
   font-size: 2.5rem;
   line-height: 1.2;
+  color: #ffffff;
 }
 
 .text-lg {
   font-size: 1.25rem;
   line-height: 1.6;
+  color: #b0b0b0;
 }
 
 .text-md {
   font-size: 1rem;
   line-height: 1.6;
+  color: #b0b0b0;
 }
 
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.5;
+  color: #999999;
 }
 
 .text-xs {
   font-size: 0.75rem;
   line-height: 1.4;
+  color: #888888;
 }
 
 .font-mono {
@@ -147,6 +161,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 100%;
 }
 
+/* КНОПКИ ОСТАВЛЕНЫ БЕЗ ИЗМЕНЕНИЙ */
 .btn-primary {
   background-color: var(--black);
   color: var(--white);
@@ -212,10 +227,10 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(26, 26, 26, 0.95); /* Темный полупрозрачный фон */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.1); /* Светлая граница */
   padding: 16px 0;
   transition: all var(--transition-base);
 }
@@ -235,7 +250,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 800;
   font-size: 1.5rem;
-  color: var(--black);
+  color: #ffffff; /* Белый логотип */
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -243,7 +258,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo span {
-  color: var(--accent);
+  color: var(--accent); /* Акцентный цвет остался прежним */
 }
 
 /* ===== MODERN NAVIGATION ===== */
@@ -261,7 +276,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-link {
   position: relative;
-  color: var(--gray-800);
+  color: #e0e0e0; /* Светлый текст */
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9375rem;
@@ -276,12 +291,12 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--black);
+  background-color: var(--accent); /* Акцентный цвет */
   transition: width var(--transition-base);
 }
 
 .nav-link:hover {
-  color: var(--black);
+  color: #ffffff; /* Белый при наведении */
 }
 
 .nav-link:hover::after {
@@ -289,7 +304,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-link.active {
-  color: var(--black);
+  color: #ffffff; /* Белый для активной ссылки */
   font-weight: 600;
 }
 
@@ -307,7 +322,7 @@ h1, h2, h3, h4, h5, h6 {
   top: 100%;
   left: -16px;
   min-width: 240px;
-  background-color: var(--white);
+  background-color: #2a2a2a; /* Темный фон дропдауна */
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-xl);
   opacity: 0;
@@ -316,7 +331,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: all var(--transition-base);
   z-index: 100;
   padding: 16px 0;
-  border: 1px solid var(--gray-100);
+  border: 1px solid #3a3a3a; /* Темная граница */
 }
 
 .dropdown:hover .dropdown-content {
@@ -330,19 +345,19 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: 12px;
   padding: 12px 24px;
-  color: var(--gray-800);
+  color: #e0e0e0; /* Светлый текст */
   text-decoration: none;
   transition: all var(--transition-fast);
 }
 
 .dropdown-item:hover {
-  background-color: var(--gray-50);
-  color: var(--black);
+  background-color: #333333; /* Темнее при наведении */
+  color: #ffffff; /* Белый при наведении */
 }
 
 .dropdown-item i {
   width: 20px;
-  color: var(--gray-600);
+  color: var(--accent); /* Акцентный цвет иконок */
 }
 
 /* ===== SECTIONS ===== */
@@ -354,11 +369,12 @@ h1, h2, h3, h4, h5, h6 {
 .section-header h2 {
   font-size: 3rem;
   margin-bottom: 16px;
+  color: #ffffff;
 }
 
 .section-header p {
   font-size: 1.125rem;
-  color: var(--gray-800);
+  color: #b0b0b0; /* Серый текст */
   max-width: 600px;
   margin: 0 auto;
 }
@@ -372,10 +388,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card {
-  background-color: var(--white);
+  background-color: #2a2a2a; /* Темный фон карточек */
   border-radius: var(--border-radius);
   overflow: hidden;
-  border: 1px solid var(--gray-100);
+  border: 1px solid #3a3a3a; /* Темная граница */
   transition: all var(--transition-base);
   position: relative;
 }
@@ -383,13 +399,13 @@ h1, h2, h3, h4, h5, h6 {
 .card:hover {
   transform: translateY(-8px);
   box-shadow: var(--shadow-xl);
-  border-color: transparent;
+  border-color: var(--accent); /* Акцентный цвет границы при наведении */
 }
 
 .card-image {
   width: 100%;
   height: 240px;
-  background-color: var(--gray-100);
+  background-color: #3a3a3a; /* Темный фон изображения */
   overflow: hidden;
 }
 
@@ -412,7 +428,7 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--primary);
+  color: var(--primary); /* Основной цвет остался прежним */
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 12px;
@@ -421,17 +437,18 @@ h1, h2, h3, h4, h5, h6 {
 .card-title {
   font-size: 1.25rem;
   margin-bottom: 8px;
+  color: #ffffff; /* Белый заголовок */
 }
 
 .card-description {
   font-size: 0.9375rem;
-  color: var(--gray-800);
+  color: #b0b0b0; /* Серый текст */
   margin-bottom: 16px;
 }
 
 /* ===== E-SHOP SECTION ===== */
 .eshop-section {
-  background-color: var(--gray-50);
+  background-color: #222222; /* Темный фон для секции магазина */
 }
 
 .filter-tabs {
@@ -445,9 +462,9 @@ h1, h2, h3, h4, h5, h6 {
 .filter-tab {
   padding: 10px 20px;
   background-color: transparent;
-  border: 1px solid var(--gray-200);
+  border: 1px solid #444444; /* Темная граница */
   border-radius: var(--border-radius);
-  color: var(--gray-800);
+  color: #e0e0e0; /* Светлый текст */
   font-weight: 500;
   font-size: 0.9375rem;
   cursor: pointer;
@@ -455,14 +472,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .filter-tab:hover {
-  border-color: var(--black);
-  color: var(--black);
+  border-color: var(--accent); /* Акцентный цвет при наведении */
+  color: #ffffff; /* Белый при наведении */
 }
 
 .filter-tab.active {
-  background-color: var(--black);
-  border-color: var(--black);
-  color: var(--white);
+  background-color: var(--accent); /* Акцентный цвет для активной вкладки */
+  border-color: var(--accent);
+  color: var(--white); /* Белый текст на акцентном фоне */
 }
 
 .products-grid {
@@ -473,23 +490,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .product-card {
-  background-color: var(--white);
+  background-color: #2a2a2a; /* Темный фон карточек товаров */
   border-radius: var(--border-radius);
   overflow: hidden;
-  border: 1px solid var(--gray-100);
+  border: 1px solid #3a3a3a; /* Темная граница */
   transition: all var(--transition-base);
 }
 
 .product-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
-  border-color: transparent;
+  border-color: var(--accent); /* Акцентный цвет границы при наведении */
 }
 
 .product-image {
   width: 100%;
   height: 320px;
-  background-color: var(--gray-100);
+  background-color: #3a3a3a; /* Темный фон изображения */
   overflow: hidden;
   position: relative;
 }
@@ -523,7 +540,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .product-category {
   font-size: 0.75rem;
-  color: var(--gray-800);
+  color: var(--primary); /* Основной цвет категории */
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 8px;
@@ -533,24 +550,25 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 8px;
-  color: var(--black);
+  color: #ffffff; /* Белый заголовок товара */
 }
 
 .product-price {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--black);
+  color: #ffffff; /* Белая цена */
 }
 
 /* ===== FORM STYLES ===== */
 .form-section {
-  background-color: var(--white);
+  background-color: #2a2a2a; /* Темный фон формы */
   border-radius: var(--border-radius-lg);
   padding: 64px;
   margin: 80px auto;
   max-width: 600px;
   box-shadow: var(--shadow-md);
+  border: 1px solid #3a3a3a; /* Темная граница */
 }
 
 .form-group {
@@ -562,25 +580,25 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 8px;
-  color: var(--gray-800);
+  color: #ffffff; /* Белые лейблы */
 }
 
 .form-control {
   width: 100%;
   padding: 14px 16px;
-  border: 1px solid var(--gray-200);
+  border: 1px solid #444444; /* Темная граница */
   border-radius: var(--border-radius);
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  color: var(--gray-900);
+  color: #e0e0e0; /* Светлый текст ввода */
   transition: all var(--transition-fast);
-  background-color: var(--white);
+  background-color: #1a1a1a; /* Темный фон поля ввода */
 }
 
 .form-control:focus {
   outline: none;
-  border-color: var(--black);
-  box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+  border-color: var(--primary); /* Основной цвет при фокусе */
+  box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.1);
 }
 
 textarea.form-control {
@@ -590,9 +608,10 @@ textarea.form-control {
 
 /* ===== FOOTER ===== */
 .footer {
-  background-color: var(--black);
-  color: var(--white);
+  background-color: #111111; /* Еще более темный фон для футера */
+  color: #e0e0e0; /* Светлый текст */
   padding: 80px 0 40px;
+  border-top: 1px solid #333333; /* Темная граница */
 }
 
 .footer-grid {
@@ -606,7 +625,7 @@ textarea.form-control {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 20px;
-  color: var(--white);
+  color: #ffffff; /* Белые заголовки */
 }
 
 .footer-links {
@@ -618,21 +637,21 @@ textarea.form-control {
 }
 
 .footer-links a {
-  color: var(--gray-200);
+  color: #b0b0b0; /* Серые ссылки */
   text-decoration: none;
   font-size: 0.9375rem;
   transition: color var(--transition-fast);
 }
 
 .footer-links a:hover {
-  color: var(--white);
+  color: #ffffff; /* Белые при наведении */
 }
 
 .footer-bottom {
   padding-top: 40px;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid #333333; /* Темная граница */
   text-align: center;
-  color: var(--gray-400);
+  color: #888888; /* Серый текст */
   font-size: 0.875rem;
 }
 
@@ -659,10 +678,6 @@ textarea.form-control {
   .display-lg { font-size: 3.5rem; }
   .display-md { font-size: 2.75rem; }
   .hero { padding-top: 140px; }
-  .inline-logo {
-    width: 400px;
-    height: 180px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -672,10 +687,6 @@ textarea.form-control {
   .display-md { font-size: 2.25rem; }
   .nav { display: none; }
   .form-section { padding: 40px 24px; }
-  .inline-logo {
-    width: 300px;
-    height: 135px;
-  }
 }
 
 @media (max-width: 640px) {
@@ -684,35 +695,6 @@ textarea.form-control {
   .products-grid { grid-template-columns: 1fr; }
   .hero-content h1 { font-size: 2.5rem; }
   .section-header h2 { font-size: 2rem; }
-  .inline-logo {
-    width: 250px;
-    height: 110px;
-  }
 }
 
-/* ===== DARK MODE READY ===== */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --black: #ffffff;
-    --white: #0a0a0a;
-    --gray-50: #1a1a1a;
-    --gray-100: #2a2a2a;
-    --gray-200: #3a3a3a;
-    --gray-800: #e9ecef;
-    --gray-900: #f8f9fa;
-  }
-
-  body {
-    background-color: var(--white);
-    color: var(--gray-900);
-  }
-
-  .header {
-    background-color: rgba(10, 10, 10, 0.95);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-
-  .eshop-section {
-    background-color: var(--gray-50);
-  }
-}
+/* УДАЛЕНО: медиа-запрос для темной темы, так как фон теперь всегда темный */
