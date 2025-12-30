@@ -381,32 +381,4 @@
 </script>
 </body>
 </html>
-<script>
-  // Alternative: Simple form handler that lets Netlify work normally
-  document.addEventListener('DOMContentLoaded', function() {
-    const contactForm = document.getElementById('contactForm');
-    const successMessage = document.getElementById('successMessage');
-    const submitBtn = document.getElementById('submitBtn');
 
-    if (contactForm) {
-      contactForm.addEventListener('submit', function() {
-        // Just add loading state, let Netlify handle the rest
-        if (submitBtn) {
-          const originalText = submitBtn.innerHTML;
-          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-          submitBtn.disabled = true;
-
-          // The page will reload/redirect, so this is just visual feedback
-        }
-      });
-
-      // Check for success on page load
-      if (window.location.search.includes('success=true')) {
-        if (successMessage) {
-          successMessage.style.display = 'block';
-          successMessage.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    }
-  });
-</script>
