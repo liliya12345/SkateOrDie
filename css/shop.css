@@ -172,3 +172,149 @@
   opacity: 1;
   visibility: visible;
 }
+/* Uppdaterad CSS för klickbara produkter */
+
+.product-card {
+  background-color: #2a2a2a;
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+  cursor: pointer; /* Lägger till pekare-cursor */
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-8px); /* Lyfter korten vid hover */
+  box-shadow: 0 12px 24px rgba(0, 255, 136, 0.2); /* Lägger till skugga */
+  border-color: #00ff88; /* Ändrar kantfärg */
+}
+
+.product-card:hover .product-image::after {
+  opacity: 1; /* Visar overlay gradient */
+}
+
+.product-card:hover .product-image img {
+  transform: scale(5.05); /* Zoomar bilden lite */
+}
+
+.product-card:hover .view-product-overlay {
+  opacity: 1; /* Visar "View Product" texten */
+  transform: translateY(0); /* Animerar texten in */
+}
+
+.product-image {
+  position: relative;
+  overflow: hidden;
+  height: 300px;
+}
+
+.product-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(transparent 60%, rgba(0, 0, 0, 0.8) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease; /* Lägger till övergång för zoom */
+}
+
+.view-product-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background-color: #00ff88;
+  color: #1a1a1a;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.view-product-overlay i {
+  margin-right: 8px;
+}
+
+.product-category {
+  color: #00ff88;
+  transition: color 0.3s ease;
+}
+
+.product-card:hover .product-category {
+  color: #ffffff;
+}
+
+.product-title {
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.product-card:hover .product-title {
+  color: #00ff88;
+}
+
+.product-price {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1.25rem;
+  transition: color 0.3s ease;
+}
+
+.product-card:hover .product-price {
+  color: #00ff88;
+}
+
+/* Cursor pointer effect */
+.product-card * {
+  cursor: pointer;
+}
+
+/* Add to cart button hover effect */
+.product-card .btn-secondary {
+  transition: all 0.3s ease;
+}
+
+.product-card:hover .btn-secondary {
+  background-color: #00ff88;
+  color: #1a1a1a;
+  border-color: #00ff88;
+  transform: scale(1.05);
+}
+
+/* Product badge hover effect */
+.product-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #00ff88;
+  color: #1a1a1a;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover .product-badge {
+  background-color: #1a1a1a;
+  color: #00ff88;
+  transform: scale(1.1);
+}
