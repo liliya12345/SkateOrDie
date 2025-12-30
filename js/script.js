@@ -136,3 +136,19 @@ function showNotification(message, type) {
 setTimeout(() => {
   document.body.style.opacity = '1';
 }, 100);
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('form[data-netlify="true"]');
+
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      // Lägg till extra validering här om du vill
+      const name = form.querySelector('input[name="name"]');
+      const email = form.querySelector('input[name="email"]');
+
+      if (!name.value.trim() || !email.value.trim()) {
+        e.preventDefault();
+        alert('Please fill in all required fields');
+      }
+    });
+  }
+});

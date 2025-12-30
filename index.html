@@ -206,6 +206,7 @@
 </section>
 
 <!-- Contact Section -->
+<!-- Ersätt din nuvarande contact section med detta -->
 <section id="contact" class="section-sm">
   <div class="container">
     <div class="section-header">
@@ -216,14 +217,30 @@
     </div>
 
     <div class="form-section" style="max-width: 600px;">
-      <form id="contactForm" action="send_email.php" method="POST">
+      <!-- Lägg till netlify attribut här -->
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        action="/thank-you"
+        netlify-honeypot="bot-field"
+      >
+        <!-- Honeypot field för spam -->
+        <input type="hidden" name="form-name" value="contact">
+        <p class="hidden">
+          <label>
+            Don't fill this out if you're human:
+            <input name="bot-field">
+          </label>
+        </p>
+
         <div class="form-group">
-          <label class="form-label">Full Name</label>
+          <label class="form-label">Full Name *</label>
           <input type="text" name="name" class="form-control" placeholder="Alex Morgan" required>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Email Address</label>
+          <label class="form-label">Email Address *</label>
           <input type="email" name="email" class="form-control" placeholder="alex@example.com" required>
         </div>
 
@@ -233,8 +250,8 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Message</label>
-          <textarea name="message" class="form-control" placeholder="Tell us about your project..." required></textarea>
+          <label class="form-label">Message *</label>
+          <textarea name="message" class="form-control" placeholder="Tell us about your project..." rows="5" required></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary" style="width: 100%">
