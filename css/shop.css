@@ -194,7 +194,7 @@
 }
 
 .product-card:hover .product-image img {
-  transform: scale(2.05); /* Zoomar bilden lite */
+  transform: scale(2.00); /* Zoomar bilden lite */
 }
 
 .product-card:hover .view-product-overlay {
