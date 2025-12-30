@@ -227,14 +227,42 @@
       </div>
 
       <!-- Contact Form -->
-      <form name="contact" method="POST" data-netlify="true">
+      <form name="contact" method="POST" data-netlify="true" action="/?form=submitted" netlify-honeypot="bot-field">
+        <!-- Hidden fields required by Netlify -->
         <input type="hidden" name="form-name" value="contact">
 
-        <input type="text" name="name" required>
-        <input type="email" name="email" required>
-        <textarea name="message" required></textarea>
+        <!-- Optional subject -->
+        <input type="hidden" name="subject" value="New message from SKATEORDIE contact form">
 
-        <button type="submit">Send</button>
+        <!-- Honeypot field -->
+        <p style="display: none;">
+          <label>Don't fill this out if you're human: <input name="bot-field"></label>
+        </p>
+
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" name="name" class="form-control" placeholder="Alex Morgan" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" name="email" class="form-control" placeholder="alex@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Company</label>
+          <input type="text" name="company" class="form-control" placeholder="Skate Co.">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Message *</label>
+          <textarea name="message" class="form-control" placeholder="Tell us about your project..." rows="5" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%" id="submitBtn">
+          <i class="fas fa-paper-plane"></i>
+          Send Message
+        </button>
       </form>
 
       <div style="margin-top: 40px;">
