@@ -204,6 +204,7 @@
 </section>
 
 <!-- Contact Section - UPDATED VERSION -->
+<!-- Simple Contact Form (no JavaScript) -->
 <section id="contact" class="section-sm">
   <div class="container">
     <div class="section-header">
@@ -214,27 +215,18 @@
     </div>
 
     <div class="form-section" style="max-width: 600px;">
-      <!-- Success Message (hidden initially) -->
-      <div id="successMessage" style="display: none; padding: 20px; background: rgba(46, 204, 113, 0.1); border: 1px solid #2ecc71; border-radius: 8px; margin-bottom: 20px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <i class="fas fa-check-circle" style="color: #2ecc71; font-size: 1.5rem;"></i>
-          <div>
-            <h3 style="color: #2ecc71; margin: 0 0 5px 0;">Message Sent Successfully!</h3>
-            <p style="color: white; margin: 0; opacity: 0.9;">Thank you for contacting us. We'll get back to you soon.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Contact Form -->
-      <form name="contact" method="POST" data-netlify="true" id="contactForm">
-        <!-- Hidden form name field for Netlify -->
+      <!-- Netlify will redirect to a thank you page after submission -->
+      <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <!-- Hidden fields -->
         <input type="hidden" name="form-name" value="contact">
+        <input type="hidden" name="subject" value="New message from SKATEORDIE website">
 
-        <!-- Honeypot field -->
+        <!-- Honeypot -->
         <div style="display: none;">
-          <label>Don't fill this out if you're human: <input name="bot-field"></label>
+          <label>Leave this empty: <input name="bot-field"></label>
         </div>
 
+        <!-- Form fields -->
         <div class="form-group">
           <label class="form-label">Full Name *</label>
           <input type="text" name="name" class="form-control" placeholder="Alex Morgan" required>
@@ -255,11 +247,16 @@
           <textarea name="message" class="form-control" placeholder="Tell us about your project..." rows="5" required></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary" style="width: 100%" id="submitBtn">
+        <button type="submit" class="btn btn-primary" style="width: 100%">
           <i class="fas fa-paper-plane"></i>
           Send Message
         </button>
       </form>
+
+      <!-- Info text -->
+      <p class="text-sm opacity-75 mt-4" style="font-style: italic;">
+        Note: After submitting, you will see a confirmation page from Netlify Forms.
+      </p>
 
       <div style="margin-top: 40px;">
         <span class="inline-logo"></span>
@@ -377,3 +374,11 @@
 </script>
 </body>
 </html>
+<script>
+  // Check for thank you parameter
+  if (window.location.search.includes('thankyou=true')) {
+    alert('Thank you for your message! We will contact you soon.');
+    // Remove the parameter from URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+</script>
