@@ -152,3 +152,59 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+document.addEventListener('DOMContentLoaded', function() {
+  const contactForm = document.getElementById('contactForm');
+  const successMessage = document.getElementById('successMessage');
+  const submitBtn = document.getElementById('submitBtn');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Spara originaltexten på knappen
+      const originalBtnText = submitBtn.innerHTML;
+
+      // Visa laddning
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      submitBtn.disabled = true;
+
+      // Samla formulärdata
+      const formData = new FormData(contactForm);
+      const encodedData = new URLSearchParams(formData).toString();
+
+      // Skicka till Netlify
+      fetch('/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: encodedData
+      })
+        .then(response => {
+          if (response.ok) {
+            // Visa framgångsmeddelande
+            successMessage.style.display = 'block';
+            contactForm.style.display = 'none';
+
+            // Scrolla till meddelandet
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+
+            // Återställ formuläret (fast dolt)
+            contactForm.reset();
+
+            console.log('Form submitted successfully!');
+          } else {
+            throw new Error('Form submission failed');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Sorry, there was an error sending your message. Please try again.');
+
+          // Återställ knappen
+          submitBtn.innerHTML = originalBtnText;
+          submitBtn.disabled = false;
+        });
+    });
+  }
+});
