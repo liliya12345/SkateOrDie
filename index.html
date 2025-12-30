@@ -203,7 +203,6 @@
   </div>
 </section>
 
-<!-- Contact Section - UPDATED VERSION -->
 <!-- Contact Section -->
 <section id="contact" class="section-sm">
   <div class="container">
@@ -327,98 +326,52 @@
 <script src="js/script.js"></script>
 <script src="js/home.js"></script>
 
-<!-- Form Submission JavaScript -->
+<!-- Form Submission JavaScript - BARA DETTA BLOCKET -->
 <script>
-  // Contact Form Handler
+  // Handle form submission with Netlify Forms
   document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
     const successMessage = document.getElementById('successMessage');
     const submitBtn = document.getElementById('submitBtn');
 
     if (contactForm) {
-      contactForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
+      // Check if form was just submitted (by checking URL parameters)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('submitted') || window.location.hash === '#contact') {
+        // Show success message
+        if (successMessage) {
+          successMessage.style.display = 'block';
+          successMessage.scrollIntoView({ behavior: 'smooth' });
 
-        // Show loading state
-        const originalBtnText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitBtn.disabled = true;
-
-        try {
-          // Collect form data
-          const formData = new FormData(contactForm);
-
-          // Send to Netlify
-          const response = await fetch('/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams(formData).toString()
-          });
-
-          if (response.ok) {
-            // Show success message
-            successMessage.style.display = 'block';
-            contactForm.reset();
-
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth' });
-          } else {
-            throw new Error('Form submission failed');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-          alert('Sorry, there was an error sending your message. Please try again.');
-        } finally {
-          // Reset button
-          submitBtn.innerHTML = originalBtnText;
-          submitBtn.disabled = false;
+          // Clear URL parameters
+          window.history.replaceState({}, document.title, window.location.pathname);
         }
+      }
+
+      // Add form submit handler
+      contactForm.addEventListener('submit', function(event) {
+        // Add loading state
+        if (submitBtn) {
+          const originalText = submitBtn.innerHTML;
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+          submitBtn.disabled = true;
+
+          // Reset button after 5 seconds (in case page doesn't reload)
+          setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+          }, 5000);
+        }
+
+        // Let Netlify handle the form submission
+        // The form will submit normally with data-netlify="true"
+        // No need for fetch() or preventDefault()
+
+        // Optional: You can let it submit normally without preventing default
+        // Netlify will redirect to a thank you page or show default confirmation
       });
     }
   });
 </script>
 </body>
 </html>
-<script>
-  // Handle form submission with Netlify Forms
-  document.addEventListener('DOMContentLoaded', function() {
-    const contactForm = document.getElementById('contactForm');
-    const successMessage = document.getElementById('successMessage');
-
-    if (contactForm) {
-      // Check if form was just submitted (Netlify adds hash to URL)
-      if (window.location.hash === '#contact') {
-        // Show success message
-        if (successMessage) {
-          successMessage.style.display = 'block';
-          successMessage.scrollIntoView({ behavior: 'smooth' });
-
-          // Clear the hash
-          history.replaceState(null, null, ' ');
-        }
-      }
-
-      // Add form submit handler
-      contactForm.addEventListener('submit', function() {
-        // Netlify will handle the submission
-        // We'll show message based on URL hash
-
-        // Optional: Add loading state
-        const submitBtn = document.getElementById('submitBtn');
-        if (submitBtn) {
-          const originalText = submitBtn.innerHTML;
-          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-          submitBtn.disabled = true;
-
-          // Reset button after 3 seconds (in case page doesn't reload)
-          setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-          }, 3000);
-        }
-      });
-    }
-  });
-</script>
