@@ -3,194 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You! | SKATEORDIE.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Thank You | SKATEORDIE.</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Inter', sans-serif;
-      background: #0a0a0a;
-      color: #ffffff;
-      line-height: 1.6;
-      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: white;
       display: flex;
-      flex-direction: column;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    .header {
-      background: rgba(10, 10, 10, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #ffffff;
-      text-decoration: none;
-    }
-
-    .logo span {
-      color: #ff4757;
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-    }
-
-    .nav-link {
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .nav-link:hover {
-      color: #ff4757;
-    }
-
-    .thank-you-section {
-      flex: 1;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 4rem 0;
-    }
-
-    .thank-you-content {
-      text-align: center;
-      max-width: 500px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 3rem;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-    }
-
-    .thank-you-icon {
-      font-size: 4rem;
-      color: #ff4757;
-      margin-bottom: 1.5rem;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-
-    p {
-      margin-bottom: 1rem;
-      opacity: 0.8;
-    }
-
-    .btn {
-      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      background: rgba(255,255,255,0.05);
+      padding: 40px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,71,87,0.3);
+    }
+    h1 {
+      color: #ff4757;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
       background: #ff4757;
       color: white;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
       text-decoration: none;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-top: 1.5rem;
-    }
-
-    .btn:hover {
-      background: #ff3742;
-      transform: translateY(-2px);
-    }
-
-    .footer {
-      background: #0a0a0a;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 2rem 0;
-      margin-top: auto;
-    }
-
-    .footer-bottom {
-      text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      opacity: 0.6;
-      font-size: 0.9rem;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-<header class="header">
-  <div class="container header-container">
-    <a href="index.html" class="logo">
-      SKATE<span>OR DIE.</span>
-    </a>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="index.html#research" class="nav-link">Design</a></li>
-        <li><a href="shop.html" class="nav-link">Shop</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <section class="thank-you-section">
-    <div class="container">
-      <div class="thank-you-content">
-        <div class="thank-you-icon">
-          <i class="fas fa-check-circle"></i>
-        </div>
-        <h1>Thank You!</h1>
-        <p>Your message has been sent successfully.</p>
-        <p>We'll get back to you as soon as possible.</p>
-        <a href="index.html" class="btn">
-          <i class="fas fa-arrow-left"></i>
-          Back to Homepage
-        </a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <div class="footer-bottom">
-      <p>© 2025 SKATE or DIE. Skatewear Collective. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
+<div class="container">
+  <h1>Thank You!</h1>
+  <p>Your message has been sent successfully.</p>
+  <p>We'll get back to you as soon as possible.</p>
+  <a href="index.html" class="btn">Return to Homepage</a>
+</div>
 </body>
 </html>
