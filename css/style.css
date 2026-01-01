@@ -448,6 +448,79 @@ h1, h2, h3, h4, h5, h6 {
   color: #b0b0b0; /* Серый текст */
   margin-bottom: 16px;
 }
+/* Стили для карточек продуктов на главной */
+.card {
+  background-color: #2a2a2a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 255, 136, 0.2);
+  border-color: #00ff88;
+}
+
+.card-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-category {
+  color: #00ff88;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.card-title {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.card-description {
+  color: #b0b0b0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 16px;
+}
+
+.product-price {
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.btn-accent {
+  background-color: #b63971;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
 
 /* ===== E-SHOP SECTION ===== */
 .eshop-section {
@@ -820,9 +893,9 @@ textarea.form-control {
 }
 
 .product-card:hover .btn-secondary {
-  background-color: #00ff88;
+  background-color: #b63971;
   color: #1a1a1a;
-  border-color: #00ff88;
+  border-color: #b63971;
   transform: scale(1.05);
 }
 
