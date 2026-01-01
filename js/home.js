@@ -1,37 +1,47 @@
-// Добавьте это в ваш существующий script.js или создайте отдельный файл
-// document.addEventListener('DOMContentLoaded', function() {
-//   // Проверяем, была ли форма только что отправлена
-//   const urlParams = new URLSearchParams(window.location.search);
-//   const formSubmitted = urlParams.get('form');
-//
-//   if (formSubmitted === 'submitted') {
-//     // Показываем сообщение об успехе
-//     const successMessage = document.getElementById('successMessage');
-//     if (successMessage) {
-//       successMessage.style.display = 'block';
-//       successMessage.scrollIntoView({ behavior: 'smooth' });
-//     }
-//
-//     // Очищаем URL от параметров
-//     window.history.replaceState({}, document.title, window.location.pathname);
-//   }
-//
-//   // Добавляем обработчик для кнопки отправки
-//   const submitBtn = document.getElementById('submitBtn');
-//   if (submitBtn) {
-//     const form = submitBtn.closest('form');
-//
-//     form.addEventListener('submit', function() {
-//       // Показываем состояние загрузки
-//       const originalText = submitBtn.innerHTML;
-//       submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-//       submitBtn.disabled = true;
-//
-//       // Восстанавливаем кнопку через 3 секунды (на случай если страница не перезагрузится)
-//       setTimeout(() => {
-//         submitBtn.innerHTML = originalText;
-//         submitBtn.disabled = false;
-//       }, 3000);
-//     });
-//   }
-// });
+function updateCategoryDropdown() {
+  const dropdownContent = document.querySelector('.dropdown-content');
+  if (!dropdownContent) return;
+
+  // Очистить существующие элементы (кроме "All Products")
+  const allProductsLink = dropdownContent.querySelector('a[onclick*="filterProducts(\'all\')"]');
+  dropdownContent.innerHTML = '';
+
+  // Добавить "All Products" обратно
+  if (allProductsLink) {
+    dropdownContent.appendChild(allProductsLink);
+  } else {
+    const allLink = document.createElement('a');
+    allLink.href = '#filter-all';
+    allLink.className = 'dropdown-item';
+    allLink.innerHTML = '<i class="fas fa-grid"></i> All Products';
+    allLink.onclick = function() { filterProducts('all'); };
+    dropdownContent.appendChild(allLink);
+  }
+
+  // Добавить все категории
+  categories.forEach(category => {
+    // Пропускаем если уже есть
+    if (dropdownContent.querySelector(`a[onclick*="filterProducts('${category}')"]`)) {
+      return;
+    }
+
+    const categoryLink = document.createElement('a');
+    categoryLink.href = `#filter-${category.toLowerCase()}`;
+    categoryLink.className = 'dropdown-item';
+
+    // Выбрать иконку в зависимости от категории
+    let iconClass = 'fas fa-tag'; // иконка по умолчанию
+    if (category === 'Hoodies') iconClass = 'fas fa-tshirt';
+    else if (category === 'Pants') iconClass = 'fas fa-user';
+    else if (category === 'Footwear') iconClass = 'fas fa-shoe-prints';
+    else if (category === 'Accessories') iconClass = 'fas fa-hat-cowboy';
+    else if (category === 'T-Shirts') iconClass = 'fas fa-tshirt';
+    else if (category === 'Jackets') iconClass = 'fas fa-vest';
+    else if (category === 'Skateboards') iconClass = 'fas fa-skateboard';
+
+    categoryLink.innerHTML = `<i class="${iconClass}"></i> ${category}`;
+    categoryLink.onclick = function() { filterProducts(category); };
+
+    dropdownContent.appendChild(categoryLink);
+  });
+}

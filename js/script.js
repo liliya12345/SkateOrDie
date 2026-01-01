@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   setupHeaderScroll();
   setupMobileMenu();
   setupSmoothScrolling();
+
 });
 
 // Header Scroll Effect

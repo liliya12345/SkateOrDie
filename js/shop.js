@@ -1,6 +1,7 @@
-// ===== SHOP JAVASCRIPT =====
 
-// Product Data
+  // ===== SHOP JAVASCRIPT =====
+
+  // Product Data - это единственный массив продуктов
   let products = [
   {
     id: 1,
@@ -101,7 +102,6 @@
     badge: "Bestseller",
     colors: ["Black", "White", "Blue"]
   },
-
   {
     id: 13,
     name: "Windbreaker Jacket",
@@ -129,8 +129,6 @@
     badge: "New",
     colors: ["Black", "White", "Gray"]
   },
-
-
   {
     id: 18,
     name: "Flame Print Hoodie",
@@ -149,7 +147,6 @@
     badge:  "Limited",
     colors: ["Blue", "Black", "Gray"]
   },
-
   {
     id: 21,
     name: "Puffer Vest",
@@ -186,7 +183,6 @@
     badge: "New",
     colors: ["Black", "Gray", "Navy"]
   },
-
   {
     id: 27,
     name: "Camo Print Hoodie",
@@ -214,7 +210,6 @@
     badge: "Bestseller",
     colors: ["Black", "White", "Red"]
   },
-
   {
     id: 31,
     name: "Tie Dye Hoodie",
@@ -269,7 +264,6 @@
     badge: "New Design",
     colors: ["Black", "White", "Gray"]
   },
-
   {
     id: 39,
     name: "Fleece Jacket",
@@ -315,7 +309,6 @@
     badge:  "Limited",
     colors: ["Gray", "Black", "White"]
   },
-
   {
     id: 45,
     name: "Oversized Hoodie",
@@ -325,7 +318,6 @@
     badge: "Oversized Fit",
     colors: ["Black", "Gray", "Oversized"]
   },
-
   {
     id: 47,
     name: "Thermal Hoodie",
@@ -353,52 +345,63 @@
     badge: "Complete",
     colors: ["Various Graphics"]
   }
+  ];
 
-];
+  let cart = [];
+  let categories = ['Hoodies', 'Pants', 'Footwear', 'Accessories', 'T-Shirts', 'Jackets', 'Skateboards'];
+  let selectedCategory = '';
 
-let cart = [];
+  // Initialize shop
+  document.addEventListener('DOMContentLoaded', function() {
+  // Сначала загружаем сохраненные продукты из localStorage
+  loadProductsFromStorage();
 
-// Initialize shop
-document.addEventListener('DOMContentLoaded', function() {
+  // Затем инициализируем остальное
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get('category') || 'all';
 
   loadProducts(category);
   loadCart();
   setupCartModal();
+
+  // Инициализируем админ-панель
+  loadCategories();
+  updateProductSummary();
+  setupImagePreview();
+  loadExistingCategoriesList();
 });
 
-// Load Products
-function loadProducts(category) {
+  // Load Products
+  function loadProducts(category) {
   const container = document.getElementById('productsContainer');
   const filterTabs = document.querySelectorAll('.filter-tab');
 
   // Filter products
   let filteredProducts = products;
   if (category !== 'all') {
-    filteredProducts = products.filter(p => p.category === category);
-  }
+  filteredProducts = products.filter(p => p.category === category);
+}
 
   // Clear container
   if (container) {
-    container.innerHTML = '';
-  }
+  container.innerHTML = '';
+}
 
   // Update active tab
   if (filterTabs.length > 0) {
-    filterTabs.forEach(tab => {
-      tab.classList.remove('active');
-      if (category === 'all' && tab.textContent === 'All Products') {
-        tab.classList.add('active');
-      } else if (tab.textContent.includes(category)) {
-        tab.classList.add('active');
-      }
-    });
-  }
+  filterTabs.forEach(tab => {
+  tab.classList.remove('active');
+  if (category === 'all' && tab.textContent === 'All Products') {
+  tab.classList.add('active');
+} else if (tab.textContent.includes(category)) {
+  tab.classList.add('active');
+}
+});
+}
 
   // Display message if no products
   if (filteredProducts.length === 0 && container) {
-    container.innerHTML = `
+  container.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; padding: 48px;">
         <div style="width: 64px; height: 64px; background-color: var(--gray-100); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 24px;">
           <i class="fas fa-box-open" style="font-size: 24px; color: var(--gray-800);"></i>
@@ -407,15 +410,15 @@ function loadProducts(category) {
         <p class="opacity-75">No products in this category yet.</p>
       </div>
     `;
-    return;
-  }
+  return;
+}
 
   // Create product cards
   if (container) {
-    filteredProducts.forEach(product => {
-      const productCard = document.createElement('div');
-      productCard.className = 'product-card';
-      productCard.innerHTML = `
+  filteredProducts.forEach(product => {
+  const productCard = document.createElement('div');
+  productCard.className = 'product-card';
+  productCard.innerHTML = `
         <div class="product-image">
           <img src="${product.imageUrl}"
                alt="${product.name}"
@@ -434,13 +437,13 @@ function loadProducts(category) {
         </div>
       `;
 
-      container.appendChild(productCard);
-    });
-  }
+  container.appendChild(productCard);
+});
+}
 }
 
-// Filter Products
-function filterProducts(category) {
+  // Filter Products
+  function filterProducts(category) {
   loadProducts(category);
 
   // Update URL hash for deep linking
@@ -448,55 +451,55 @@ function filterProducts(category) {
   window.history.pushState(null, null, `#${categoryId}`);
 }
 
-// Cart Functions
-function addToCart(productId) {
+  // Cart Functions
+  function addToCart(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
 
   const existingItem = cart.find(item => item.id === productId);
 
   if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cart.push({
-      ...product,
-      quantity: 1
-    });
-  }
+  existingItem.quantity += 1;
+} else {
+  cart.push({
+  ...product,
+  quantity: 1
+});
+}
 
   saveCart();
   updateCartUI();
   showNotification(`Added "${product.name}" to cart`, 'success');
 }
 
-function removeFromCart(productId) {
+  function removeFromCart(productId) {
   cart = cart.filter(item => item.id !== productId);
   saveCart();
   updateCartUI();
 }
 
-function updateCartUI() {
+  function updateCartUI() {
   const cartCount = document.getElementById('cartCount');
   const cartItems = document.getElementById('cartItems');
   const cartTotal = document.getElementById('cartTotal');
 
   // Update cart count
   if (cartCount) {
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = totalItems;
-  }
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartCount.textContent = totalItems;
+}
 
   // Update cart items
   if (cartItems) {
-    if (cart.length === 0) {
-      cartItems.innerHTML = `
+  if (cart.length === 0) {
+  cartItems.innerHTML = `
         <div style="text-align: center; padding: 40px 0;">
           <i class="fas fa-shopping-bag" style="font-size: 3rem; color: var(--gray-300); margin-bottom: 16px;"></i>
           <p>Your cart is empty</p>
         </div>
       `;
-    } else {
-      cartItems.innerHTML = cart.map(item => `
+} else {
+  cartItems.innerHTML = cart.map(item => `
         <div class="cart-item">
           <div class="cart-item-image">
             <img src="${item.imageUrl}" alt="${item.name}">
@@ -515,63 +518,516 @@ function updateCartUI() {
           </div>
         </div>
       `).join('');
-    }
-  }
+}
+}
 
   // Update cart total
   if (cartTotal) {
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    cartTotal.textContent = `$${total}`;
-  }
+  const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  cartTotal.textContent = `$${total}`;
+}
 }
 
-function updateQuantity(productId, newQuantity) {
+  function updateQuantity(productId, newQuantity) {
   if (newQuantity < 1) {
-    removeFromCart(productId);
-    return;
-  }
+  removeFromCart(productId);
+  return;
+}
 
   const item = cart.find(item => item.id === productId);
   if (item) {
-    item.quantity = newQuantity;
-    saveCart();
-    updateCartUI();
-  }
+  item.quantity = newQuantity;
+  saveCart();
+  updateCartUI();
+}
 }
 
-function saveCart() {
+  function saveCart() {
   localStorage.setItem('skateordie_cart', JSON.stringify(cart));
 }
 
-function loadCart() {
+  function loadCart() {
   const savedCart = localStorage.getItem('skateordie_cart');
   if (savedCart) {
-    cart = JSON.parse(savedCart);
-    updateCartUI();
-  }
+  cart = JSON.parse(savedCart);
+  updateCartUI();
+}
 }
 
-function setupCartModal() {
+  function setupCartModal() {
   const cartModal = document.getElementById('cartModal');
   const overlay = document.getElementById('overlay');
 
   if (cartModal && overlay) {
-    // Close modal when clicking outside
-    overlay.addEventListener('click', toggleCart);
-  }
+  // Close modal when clicking outside
+  overlay.addEventListener('click', toggleCart);
+}
 }
 
-function toggleCart() {
+  function toggleCart() {
   const cartModal = document.getElementById('cartModal');
   const overlay = document.getElementById('overlay');
 
   if (cartModal && overlay) {
-    cartModal.classList.toggle('active');
-    overlay.classList.toggle('active');
-  }
+  cartModal.classList.toggle('active');
+  overlay.classList.toggle('active');
+}
 }
 
-// Initialize with smooth animations
-setTimeout(() => {
+
+  // Загрузить продукты из localStorage
+  function loadProductsFromStorage() {
+  const savedProducts = localStorage.getItem('skateordie_products');
+  const savedCategories = localStorage.getItem('skateordie_categories');
+
+  if (savedProducts) {
+  // Объединяем стандартные продукты с сохраненными
+  const storedProducts = JSON.parse(savedProducts);
+
+  // Проверяем, есть ли уже стандартные продукты
+  const defaultProductIds = products.map(p => p.id);
+  const newProducts = storedProducts.filter(p => !defaultProductIds.includes(p.id));
+
+  // Добавляем только новые продукты
+  products = [...products, ...newProducts];
+}
+
+    if (savedCategories) {
+      const storedCategories = JSON.parse(savedCategories);
+      // ✅ ОБНОВИТЬ КАТЕГОРИИ ИЗ LOCALSTORAGE
+      storedCategories.forEach(cat => {
+        if (!categories.includes(cat)) {
+          categories.push(cat);
+        }
+      });
+    }
+
+    // ✅ ЗАГРУЗИТЬ ОБНОВЛЕННЫЕ КАТЕГОРИИ В ФИЛЬТРЫ
+    updateFilterTabs();
+}
+  // ✅ НОВАЯ ФУНКЦИЯ: Обновить фильтры категорий
+  function updateFilterTabs() {
+    const filterTabs = document.getElementById('filterTabs');
+    if (!filterTabs) return;
+
+    // Очистить существующие фильтры (кроме "All Products")
+    const allProductsBtn = filterTabs.querySelector('#filter-all');
+    filterTabs.innerHTML = '';
+
+    // Добавить кнопку "All Products"
+    if (allProductsBtn) {
+      filterTabs.appendChild(allProductsBtn);
+    } else {
+      const allBtn = document.createElement('button');
+      allBtn.className = 'filter-tab active';
+      allBtn.id = 'filter-all';
+      allBtn.textContent = 'All Products';
+      allBtn.onclick = function() { filterProducts('all'); };
+      filterTabs.appendChild(allBtn);
+    }
+
+    // Добавить кнопки для всех категорий
+    categories.forEach(category => {
+      // Пропускаем если кнопка уже есть
+      if (document.getElementById(`filter-${category.toLowerCase()}`)) {
+        return;
+      }
+
+      const categoryBtn = document.createElement('button');
+      categoryBtn.className = 'filter-tab';
+      categoryBtn.id = `filter-${category.toLowerCase()}`;
+      categoryBtn.textContent = category;
+      categoryBtn.onclick = function() { filterProducts(category); };
+
+      filterTabs.appendChild(categoryBtn);
+    });
+
+    // ✅ ТАКЖЕ ОБНОВИТЬ ДРОПДАУН В HEADER
+    updateCategoryDropdown();
+  }
+
+  // ✅ ФУНКЦИЯ: Обновить dropdown категорий в header
+  function updateCategoryDropdown() {
+    const dropdownContent = document.querySelector('.dropdown-content');
+    if (!dropdownContent) return;
+
+    // Очистить существующие элементы (кроме "All Products")
+    const allProductsLink = dropdownContent.querySelector('a[onclick*="filterProducts(\'all\')"]');
+    dropdownContent.innerHTML = '';
+
+    // Добавить "All Products" обратно
+    if (allProductsLink) {
+      dropdownContent.appendChild(allProductsLink);
+    } else {
+      const allLink = document.createElement('a');
+      allLink.href = '#filter-all';
+      allLink.className = 'dropdown-item';
+      allLink.innerHTML = '<i class="fas fa-grid"></i> All Products';
+      allLink.onclick = function() { filterProducts('all'); };
+      dropdownContent.appendChild(allLink);
+    }
+
+    // Добавить все категории
+    categories.forEach(category => {
+      // Пропускаем если уже есть
+      if (dropdownContent.querySelector(`a[onclick*="filterProducts('${category}')"]`)) {
+        return;
+      }
+
+      const categoryLink = document.createElement('a');
+      categoryLink.href = `#filter-${category.toLowerCase()}`;
+      categoryLink.className = 'dropdown-item';
+
+      // Выбрать иконку в зависимости от категории
+      let iconClass = 'fas fa-tag'; // иконка по умолчанию
+      if (category === 'Hoodies') iconClass = 'fas fa-tshirt';
+      else if (category === 'Pants') iconClass = 'fas fa-user';
+      else if (category === 'Footwear') iconClass = 'fas fa-shoe-prints';
+      else if (category === 'Accessories') iconClass = 'fas fa-hat-cowboy';
+      else if (category === 'T-Shirts') iconClass = 'fas fa-tshirt';
+      else if (category === 'Jackets') iconClass = 'fas fa-vest';
+      else if (category === 'Skateboards') iconClass = 'fas fa-skateboard';
+
+      categoryLink.innerHTML = `<i class="${iconClass}"></i> ${category}`;
+      categoryLink.onclick = function() { filterProducts(category); };
+
+      dropdownContent.appendChild(categoryLink);
+    });
+  }
+  // Сохранить продукты в localStorage
+  function saveProductsToStorage() {
+  localStorage.setItem('skateordie_products', JSON.stringify(products));
+  localStorage.setItem('skateordie_categories', JSON.stringify(categories));
+}
+
+  // Show admin tab
+  function showAdminTab(tabName) {
+  // Hide all forms
+  document.querySelectorAll('.admin-form').forEach(form => {
+    form.classList.remove('active');
+  });
+
+  // Remove active class from all tabs
+  document.querySelectorAll('.admin-tab').forEach(tab => {
+  tab.classList.remove('active');
+});
+
+  // Show selected form and activate tab
+  document.getElementById(`${tabName}Form`).classList.add('active');
+  event.target.classList.add('active');
+}
+
+  // Load categories for selection
+  function loadCategories() {
+  const container = document.getElementById('categorySelection');
+
+  if (!container) return;
+
+  container.innerHTML = categories.map(category => `
+    <div class="category-tag" onclick="selectCategory('${category}')"
+         data-category="${category}">
+      <i class="fas fa-tag"></i>
+      <span>${category}</span>
+    </div>
+  `).join('');
+}
+
+  // Select category
+  function selectCategory(category) {
+  selectedCategory = category;
+
+  // Update UI
+  document.querySelectorAll('.category-tag').forEach(tag => {
+  tag.classList.remove('selected');
+  if (tag.dataset.category === category) {
+  tag.classList.add('selected');
+}
+});
+
+  document.getElementById('selectedCategory').value = category;
+}
+
+  // Setup image preview
+  function setupImagePreview() {
+  const imageUrlInput = document.getElementById('productImageUrl');
+  const preview = document.getElementById('imagePreview');
+
+  if (imageUrlInput && preview) {
+  imageUrlInput.addEventListener('input', function() {
+  const url = this.value.trim();
+
+  if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+  preview.innerHTML = `<img src="${url}" alt="Product preview" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-preview-placeholder\'><i class=\'fas fa-exclamation-circle\'></i><span>Image not found</span></div>';">`;
+} else if (url) {
+  preview.innerHTML = '<div class="image-preview-placeholder"><i class="fas fa-exclamation-circle"></i><span>Invalid URL</span></div>';
+} else {
+  preview.innerHTML = '<div class="image-preview-placeholder"><i class="fas fa-image"></i><span>Image preview will appear here</span></div>';
+}
+});
+}
+}
+
+  // Add new product
+  function addNewProduct(event) {
+  event.preventDefault();
+
+  // Get form values
+  const name = document.getElementById('productName').value.trim();
+  const price = parseFloat(document.getElementById('productPrice').value);
+  const category = document.getElementById('selectedCategory').value;
+  const badge = document.getElementById('productBadge').value.trim();
+  const description = document.getElementById('productDescription').value.trim();
+  const imageUrl = document.getElementById('productImageUrl').value.trim();
+  const colors = document.getElementById('productColors').value
+  .split(',')
+  .map(color => color.trim())
+  .filter(color => color.length > 0);
+
+  // Validation
+  if (!name || !price || !category || !imageUrl) {
+  showNotification('Please fill all required fields', 'error');
+  return;
+}
+
+  if (price <= 0) {
+  showNotification('Price must be greater than 0', 'error');
+  return;
+}
+
+  // Generate new product ID
+  const newId = products.length > 0
+  ? Math.max(...products.map(p => p.id)) + 1
+  : 1;
+
+  // Create new product object
+  const newProduct = {
+  id: newId,
+  name: name,
+  price: price,
+  category: category,
+  imageUrl: imageUrl,
+  badge: badge || null,
+  colors: colors.length > 0 ? colors : ['Black', 'White', 'Gray'],
+  addedDate: new Date().toISOString()
+};
+
+  // Add to products array
+  products.push(newProduct);
+
+  // Save to localStorage
+  saveProductsToStorage();
+
+  // Update UI
+  updateProductSummary();
+
+  // Add to filter tabs if new category
+  if (!categories.includes(category)) {
+  categories.push(category);
+  loadCategories();
+  addFilterTab(category);
+}
+
+  // Reset form
+  resetProductForm();
+
+  // Show notification
+  showNotification(`Product "${name}" added successfully!`, 'success');
+
+  // Reload products in current view
+  const activeFilter = document.querySelector('.filter-tab.active');
+  if (activeFilter) {
+  const currentFilter = activeFilter.id.replace('filter-', '');
+  if (currentFilter === 'all' || currentFilter === category.toLowerCase()) {
+  loadProducts(currentFilter === 'all' ? 'all' : category);
+}
+}
+}
+
+  // Add new category
+  function addNewCategory(event) {
+  event.preventDefault();
+
+  const categoryName = document.getElementById('categoryName').value.trim();
+
+  if (!categoryName) {
+  showNotification('Please enter a category name', 'error');
+  return;
+}
+
+  if (categories.includes(categoryName)) {
+  showNotification('Category already exists', 'error');
+  return;
+}
+
+  // Add to categories
+  categories.push(categoryName);
+
+  // Update UI
+  loadCategories();
+  loadExistingCategoriesList();
+  addFilterTab(categoryName);
+
+  // Reset form
+  resetCategoryForm();
+
+  showNotification(`Category "${categoryName}" added successfully!`, 'success');
+}
+
+  // Add filter tab
+  function addFilterTab(categoryName) {
+  const filterTabs = document.getElementById('filterTabs');
+
+  if (!filterTabs) return;
+
+  // Check if tab already exists
+  if (document.getElementById(`filter-${categoryName.toLowerCase()}`)) {
+  return;
+}
+
+  const newTab = document.createElement('button');
+  newTab.className = 'filter-tab';
+  newTab.id = `filter-${categoryName.toLowerCase()}`;
+  newTab.textContent = categoryName;
+  newTab.onclick = function() { filterProducts(categoryName); };
+
+  filterTabs.appendChild(newTab);
+}
+
+  // Reset product form
+  function resetProductForm() {
+  document.getElementById('productForm').reset();
+  document.getElementById('imagePreview').innerHTML =
+  '<div class="image-preview-placeholder"><i class="fas fa-image"></i><span>Image preview will appear here</span></div>';
+
+  // Clear category selection
+  selectedCategory = '';
+  document.querySelectorAll('.category-tag').forEach(tag => {
+  tag.classList.remove('selected');
+});
+  document.getElementById('selectedCategory').value = '';
+}
+
+  // Reset category form
+  function resetCategoryForm() {
+  document.getElementById('categoryForm').reset();
+}
+
+  // Load existing categories list
+  function loadExistingCategoriesList() {
+  const container = document.getElementById('existingCategories');
+
+  if (!container) return;
+
+  container.innerHTML = categories.map(category => `
+    <div class="category-tag">
+      <i class="fas fa-tag"></i>
+      <span>${category}</span>
+    </div>
+  `).join('');
+}
+
+  // Update product summary
+  function updateProductSummary() {
+  document.getElementById('totalProducts').textContent = products.length;
+  document.getElementById('dbTotalProducts').textContent = products.length;
+
+  // Count by category
+  const byCategory = {};
+  products.forEach(product => {
+  byCategory[product.category] = (byCategory[product.category] || 0) + 1;
+});
+
+  const summary = Object.entries(byCategory)
+  .map(([cat, count]) => `${cat}: ${count}`)
+  .join(', ');
+
+  document.getElementById('categorySummary').textContent = summary || '-';
+
+  // Last added product
+  if (products.length > 0) {
+  const lastProduct = products[products.length - 1];
+  document.getElementById('lastAdded').textContent =
+  `${lastProduct.name} (${lastProduct.category})`;
+} else {
+  document.getElementById('lastAdded').textContent = '-';
+}
+}
+
+  // Export products
+  function exportProducts() {
+  const dataStr = JSON.stringify(products, null, 2);
+  const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+  const exportFileDefaultName = `skateordie-products-${new Date().toISOString().split('T')[0]}.json`;
+
+  const linkElement = document.createElement('a');
+  linkElement.setAttribute('href', dataUri);
+  linkElement.setAttribute('download', exportFileDefaultName);
+  document.body.appendChild(linkElement);
+  linkElement.click();
+  document.body.removeChild(linkElement);
+
+  showNotification('Products exported successfully', 'success');
+}
+
+  // Clear localStorage
+  function clearLocalStorage() {
+  if (confirm('Are you sure you want to clear all product data? This cannot be undone.')) {
+  localStorage.removeItem('skateordie_products');
+  localStorage.removeItem('skateordie_categories');
+  localStorage.removeItem('skateordie_cart');
+
+  // Reset cart
+  cart = [];
+  updateCartUI();
+
+  // Reset categories
+  categories = ['Hoodies', 'Pants', 'Footwear', 'Accessories', 'T-Shirts', 'Jackets', 'Skateboards'];
+
+  // Keep default products but clear any added ones
+  // Filter only default products (IDs 1-50)
+  products = products.filter(p => p.id <= 50);
+
+  // Update UI
+  loadCategories();
+  loadExistingCategoriesList();
+  updateProductSummary();
+  loadProducts('all');
+
+  showNotification('All data cleared successfully', 'success');
+}
+}
+
+  // Restore default products
+  function restoreDefaultProducts() {
+  if (confirm('Restore default products? This will add all sample products back.')) {
+  // Reload the page to get fresh default products
+  location.reload();
+}
+}
+
+  // Show notification
+  function showNotification(message, type = 'success') {
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.textContent = message;
+
+  if (type === 'error') {
+  notification.style.backgroundColor = '#ff4444';
+}
+
+  document.body.appendChild(notification);
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+  notification.style.animation = 'slideOut 0.3s ease';
+  setTimeout(() => {
+  document.body.removeChild(notification);
+}, 300);
+}, 3000);
+}
+
+  // Initialize with smooth animations
+  setTimeout(() => {
   document.body.style.opacity = '1';
 }, 100);
