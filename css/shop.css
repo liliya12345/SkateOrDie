@@ -303,7 +303,7 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  background-color: #00ff88;
+  background-color: #b63971;
   color: #1a1a1a;
   padding: 4px 12px;
   border-radius: 20px;
@@ -315,7 +315,7 @@
 
 .product-card:hover .product-badge {
   background-color: #1a1a1a;
-  color: #00ff88;
+  color: #b63971;
   transform: scale(1.1);
 }
 
@@ -335,7 +335,7 @@
 }
 
 .logo span {
-  color: #00ff88;
+  color: #b63971;
 }
 
 .nav-link {
@@ -343,11 +343,11 @@
 }
 
 .nav-link:hover {
-  color: #00ff88;
+  color: #b63971;
 }
 
 .nav-link.active {
-  color: #00ff88;
+  color: #b63971;
 }
 
 .dropdown-content {
@@ -361,11 +361,11 @@
 
 .dropdown-item:hover {
   background-color: #333;
-  color: #00ff88;
+  color: #b63971;
 }
 
 .dropdown-item i {
-  color: #00ff88;
+  color: #b63971;
 }
 
 .shop-hero {
@@ -384,7 +384,7 @@
 }
 
 .filter-tab:hover {
-  border-color: #00ff88;
+  border-color: #b63971;
   color: #ffffff;
 }
 
