@@ -1,6 +1,8 @@
 
   // ===== SHOP JAVASCRIPT =====
-
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeShop();
+  });
   // Product Data - это единственный массив продуктов
   let products = [
   {
@@ -351,25 +353,49 @@
   let categories = ['Hoodies', 'Pants', 'Footwear', 'Accessories', 'T-Shirts', 'Jackets', 'Skateboards'];
   let selectedCategory = '';
 
+
   // Initialize shop
   document.addEventListener('DOMContentLoaded', function() {
-  // Сначала загружаем сохраненные продукты из localStorage
-  loadProductsFromStorage();
+    console.log('🚀 Магазин инициализирован');
 
-  // Затем инициализируем остальное
-  const urlParams = new URLSearchParams(window.location.search);
-  const category = urlParams.get('category') || 'all';
+    // 1. Загружаем продукты из localStorage
+    loadProductsFromStorage();
 
-  loadProducts(category);
-  loadCart();
-  setupCartModal();
+    // 2. Получаем категорию из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category') || 'all';
 
-  // Инициализируем админ-панель
-  loadCategories();
-  updateProductSummary();
-  setupImagePreview();
-  loadExistingCategoriesList();
-});
+    // 3. Загружаем корзину
+    loadCart();
+
+    // 4. Инициализируем модальное окно корзины
+    setupCartModal();
+
+    // 5. Обновляем UI корзины
+    updateCartUI();
+
+    // 6. Загружаем и показываем продукты
+    loadProducts(category);
+
+    // 7. Обновляем фильтры категорий
+    updateFilterTabs();
+
+    // 8. Прокрутка к выбранному продукту
+    const scrollToProductId = localStorage.getItem('skateordie_scroll_to_product');
+    if (scrollToProductId) {
+      setTimeout(() => {
+        const productElement = document.querySelector(`[data-product-id="${scrollToProductId}"]`);
+        if (productElement) {
+          productElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          productElement.style.boxShadow = '0 0 0 3px #00ff88';
+          setTimeout(() => {
+            productElement.style.boxShadow = '';
+          }, 2000);
+        }
+        localStorage.removeItem('skateordie_scroll_to_product');
+      }, 500);
+    }
+  });
 
   // Load Products
   function loadProducts(category) {
@@ -577,34 +603,45 @@
 
   // Загрузить продукты из localStorage
   function loadProductsFromStorage() {
-  const savedProducts = localStorage.getItem('skateordie_products');
-  const savedCategories = localStorage.getItem('skateordie_categories');
+    const savedProducts = localStorage.getItem('skateordie_products');
+    const savedCategories = localStorage.getItem('skateordie_categories');
 
-  if (savedProducts) {
-  // Объединяем стандартные продукты с сохраненными
-  const storedProducts = JSON.parse(savedProducts);
+    // ✅ ВАЖНО: Сначала загружаем сохраненные продукты
+    if (savedProducts) {
+      const storedProducts = JSON.parse(savedProducts);
 
-  // Проверяем, есть ли уже стандартные продукты
-  const defaultProductIds = products.map(p => p.id);
-  const newProducts = storedProducts.filter(p => !defaultProductIds.includes(p.id));
+      // ОБНОВЛЯЕМ основной массив products
+      // Проверяем каждый сохраненный продукт
+      storedProducts.forEach(storedProduct => {
+        const existingIndex = products.findIndex(p => p.id === storedProduct.id);
 
-  // Добавляем только новые продукты
-  products = [...products, ...newProducts];
-}
+        if (existingIndex !== -1) {
+          // Обновляем существующий продукт
+          products[existingIndex] = storedProduct;
+        } else {
+          // Добавляем новый продукт
+          products.push(storedProduct);
+        }
+      });
 
+      console.log('✅ Загружено из localStorage:', storedProducts.length, 'продуктов');
+      console.log('📊 Всего продуктов теперь:', products.length);
+    }
+
+    // ✅ Загружаем категории
     if (savedCategories) {
       const storedCategories = JSON.parse(savedCategories);
-      // ✅ ОБНОВИТЬ КАТЕГОРИИ ИЗ LOCALSTORAGE
+
+      // Добавляем новые категории
       storedCategories.forEach(cat => {
         if (!categories.includes(cat)) {
           categories.push(cat);
         }
       });
-    }
 
-    // ✅ ЗАГРУЗИТЬ ОБНОВЛЕННЫЕ КАТЕГОРИИ В ФИЛЬТРЫ
-    updateFilterTabs();
-}
+      console.log('✅ Категории из localStorage:', categories);
+    }
+  }
   // ✅ НОВАЯ ФУНКЦИЯ: Обновить фильтры категорий
   function updateFilterTabs() {
     const filterTabs = document.getElementById('filterTabs');
